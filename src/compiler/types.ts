@@ -7223,6 +7223,7 @@ export interface CompilerOptions {
     strictNullChecks?: boolean; // Always combine with strict property
     strictPropertyInitialization?: boolean; // Always combine with strict property
     stripInternal?: boolean;
+    suppressSuggestionDiagnostics?: number[];
     suppressExcessPropertyErrors?: boolean;
     suppressImplicitAnyIndexErrors?: boolean;
     /** @internal */ suppressOutputPathCheck?: boolean;

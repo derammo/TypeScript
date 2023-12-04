@@ -98,7 +98,16 @@ export function computeSuggestionDiagnostics(sourceFile: SourceFile, program: Pr
 
     addRange(diags, sourceFile.bindSuggestionDiagnostics);
     addRange(diags, program.getSuggestionDiagnostics(sourceFile, cancellationToken));
-    return diags.sort((d1, d2) => d1.start - d2.start);
+
+    // suppress diagnostics here, since the generators of these typically don't have
+    // access to the compiler options
+    let results = diags;
+    const compilerOptions = program.getCompilerOptions();
+    if (compilerOptions && Array.isArray(compilerOptions.suppressSuggestionDiagnostics)) {
+        const filter = new Set(compilerOptions.suppressSuggestionDiagnostics);
+        results = results.filter((d) => !filter.has(d.code));
+    }
+    return results.sort((d1, d2) => d1.start - d2.start);
 
     function check(node: Node) {
         if (isJsFile) {

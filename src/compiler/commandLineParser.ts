@@ -1555,7 +1555,15 @@ const commandOptionsWithoutBuild: CommandLineOption[] = [
         type: "string",
         defaultValueDescription: undefined,
     },
-];
+    {
+        name: "suppressSuggestionDiagnostics",
+        type: "list",
+        element: {
+            name: "code",
+            type: "number",
+            defaultValueDescription: undefined,
+        },
+    },];
 
 /** @internal */
 export const optionDeclarations: CommandLineOption[] = [
